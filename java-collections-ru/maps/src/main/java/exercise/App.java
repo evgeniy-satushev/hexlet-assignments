@@ -1,6 +1,8 @@
 package exercise;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class App {
@@ -10,19 +12,17 @@ public class App {
         if (sentence.isEmpty()) {
             return new HashMap<>();
         }
-        String[] words = sentence.split(" ");
-        Map<String, Integer> hashMap = new HashMap<>();
-        int value = 0;
+        List<String> words = new ArrayList<>(List.of(sentence.split(" ")));
+        Map<String, Integer> keys = new HashMap<>();
+        int value = 1;
         for (String key : words) {
-            for (int i = 0; i < words.length; i++) {
-                if (words[i].equals(key)) {
-                    value++;
-                }
+            if (!keys.containsKey(key)) {
+                keys.put(key, value);
+            } else {
+                keys.put(key, keys.get(key) + value);
             }
-            hashMap.put(key, value);
-            value = 0;
         }
-        return hashMap;
+        return keys;
     }
     public static String toString(Map<String, Integer> dictionary) {
         if (dictionary.isEmpty()) {
