@@ -10,17 +10,21 @@ public class App {
             return listOfBooks;
         }
         List<String> values = new ArrayList<>(where.values());
-        int count = 0;
         for (Map<String, String> book: books) {
-            for (String value : values) {
-                count += book.containsValue(value) ? 1 : 0;
-            }
-            if (count == values.size()) {
+            if (filteredBooks(book, values)) {
                 listOfBooks.add(book);
             }
-            count = 0;
         }
         return listOfBooks;
+    }
+    public static boolean filteredBooks(Map<String, String> book, List<String> values) {
+        int count = 0;
+        for (Map.Entry<String, String> entry: book.entrySet()) {
+            if (values.contains(entry.getValue())) {
+                count++;
+            }
+        }
+        return count == values.size();
     }
 }
 //END
